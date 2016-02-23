@@ -1,0 +1,54 @@
+/**T牌**/
+.ad_info{
+	float: left;
+	width: 95%;
+	padding-left: 40px;
+}
+.ad_price{
+	float: left;
+}
+.ad_detail{
+	float: right;
+    margin-right: 16px;
+    margin-bottom: 7px;
+}
+
+.ad_detail ul {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 3px;
+}
+.clear{
+	clear:both;
+}
+.ad_detail li {
+    float: left;
+    list-style: none;
+    vertical-align: middle;
+    padding: 0 4px 0 5px;
+    display: block;
+}
+/**交通地图 **/
+.ad_map{
+    margin-bottom: 47px;
+    margin-left: 60px;
+}
+.gray,.yellow{
+    color: #2d2926;
+}
+.gray{
+	width: 63%;
+    text-align: center;
+	background-color:#c1c0bf;
+}
+.yellow{
+	text-align: center;
+	background-color: #FFD100;
+}
+
+/** 覆盖 */
+.main .left-nav > ul {
+    width: 151px;
+    margin: 0 auto;
+}

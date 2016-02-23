@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Insert title here</title>
+<script src="../static/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../static/js/page.js" type="text/javascript"></script>
+<link href="../static/css/page.css" rel="stylesheet" type="text/css" />
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<style>  
+<!--  
+.datalist{  
+    border:1px solid #0058a3;   /* 表格边框 */  
+    font-family:Arial;  
+    border-collapse:collapse;   /* 边框重叠 */  
+    background-color:#eaf5ff;   /* 表格背景色 */  
+    font-size:14px;  
+}  
+.datalist caption{  
+    padding-bottom:5px;  
+    font:bold 1.4em;  
+    text-align:left;  
+}  
+.datalist th{  
+    border:1px solid #0058a3;   /* 行名称边框 */  
+    background-color:#4bacff;   /* 行名称背景色 */  
+    color:#FFFFFF;              /* 行名称颜色 */  
+    font-weight:bold;  
+    padding-top:4px; padding-bottom:4px;  
+    padding-left:12px; padding-right:12px;  
+    text-align:center;  
+}  
+.datalist td{  
+    border:1px solid #0058a3;   /* 单元格边框 */  
+    text-align:left;  
+    padding-top:4px; padding-bottom:4px;  
+    padding-left:10px; padding-right:10px;  
+}  
+.datalist tr.altrow{  
+    background-color:#c7e5ff;   /* 隔行变色 */  
+}  
+-->  
+</style>  
+<script type="text/javascript">
+	$(function() {
+		function pageselectCallback(page_id, jq) {
+			//alert(page_id); //回调函数，进一步使用请参阅说明文档
+		}
+		var pcount= ${pageCount};  //t0tal
+		var pagesize = ${pageSize};  //每页的数据个数
+		var page =${curPage};//当前页码
+		$("#Pagination").pagination(pcount, {
+			callback : pageselectCallback,//PageCallback() 为翻页调用次函数。
+			prev_text : " 上一页",
+			next_text : "下一页 ",
+			items_per_page : pagesize, //每页的数据个数
+			num_display_entries : 3, //两侧首尾分页条目数
+			current_page : page, //当前页码
+			num_edge_entries : 5, //连续分页主体部分分页条目数
+			link_to : "/mysty/user/getAllUser?page=__id__"
+		});
+		//InterlacesColor(); //隔行换色(这个不是分页里面的js方法)
+	});
+</script>
+<body>
+<div class="main container">
+		<div class="row">
+			<div >
+				<table class="datalist" summary="list of members in EE Studay">
+					<caption>用户列表</caption>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Class</th>
+						<th scope="col">Birthday</th>
+						<th scope="col">Constellation</th>
+						<th scope="col">Mobile</th>
+					</tr>
+					<#list userList as user>
+						<tr>
+							<!-- 奇数行 -->
+							<td>${user.name}</td>
+							<td>${user.name}</td>
+							<td>${user.password}</td>
+							<td>${user.password}</td>
+							<td>${user.password}</td>
+						</tr>
+					</#list>
+
+				</table>
+				
+			</div>
+
+		</div>
+		<div class="row">
+			<div id="Pagination" class="right flickr"></div>
+		</div>
+	</div>
+	
+
+
+</body>
+
+
+</html>

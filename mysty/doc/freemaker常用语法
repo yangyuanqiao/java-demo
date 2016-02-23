@@ -1,0 +1,284 @@
+=======常用语法==========   
+三．   
+EG.一个对象BOOK   
+1.输出 ${book.name}   
+空值判断：${book.name?if_exists },   
+${book.name?default(‘xxx’)}//默认值xxx   
+${ book.name!"xxx"}//默认值xxx   
+日期格式：${book.date?string('yyyy-MM-dd')}   
+数字格式：${book?string.number}--20   
+${book?string.currency}--<#-- $20.00 -->   
+${book?string.percent}—<#-- 20% -->   
+插入布尔值：   
+<#assign foo=ture />   
+${foo?string("yes","no")} <#-- yes -->  
+=============逻辑判断===========   
+2．   
+a:   
+<#if condition>...   
+<#elseif condit   
+inc 发布于2007-09-08 16:18:57   
+ion2>...   
+<#elseif condition3>......   
+<#else>...   
+其中空值判断可以写成<#if book.name?? >  
+</#if>   
+b:   
+<#switch value>   
+<#case refValue1>   
+...   
+<#break>   
+<#case refValue2>   
+...   
+<#break>   
+...   
+<#case refValueN>   
+...   
+<#break>   
+<#default>   
+...   
+</#switch>  
+  
+========循环读取==========   
+3．   
+<#list sequence as item>   
+...   
+</#list>   
+空值判断<#if bookList?size = 0></#list>   
+e.g.   
+<#list employees as e>   
+${e_index}. ${e.name}   
+</#list>  
+<#if mole?default(0)!=0>  
+=============用来压缩空白空间和空白的行========  
+用例   
+<#assign x = " moo ">   
+(<#compress>   
+1 2 3 4 5   
+${moo}   
+test only  
+I said, test only  
+)   
+输出   
+(1 2 3 4 5   
+moo   
+test only   
+I said, test only)  
+=======Sequence内置的计数器=======  
+3. Sequence内置的计数器: xxx_index   
+用途：显示序号   
+模板:  
+<#list employees as e>   
+${e_index}. ${e.name}   
+</#list>  
+输出:  
+1. Readonly   
+2. Robbin  
+  
+=======Sequence内置的分段器==============   
+4. Sequence内置的分段器: chunk   
+用途：某些比较BT的排版需求   
+模板:  
+<#assign seq = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']>   
+<#list seq?chunk(4) as row>   
+<ul>   
+<li><#list row as cell>${cell} </#list></li>   
+</ul>   
+</#list>  
+<#list seq?chunk(4, '-') as row>   
+<tr>   
+<td><#list row as cell>${cell} </#list></td>   
+</tr>   
+</#list>  
+  
+输出:  
+<ul>   
+<li>a</li>   
+<li>b</li>   
+<li>c</li>   
+<li>d</li>   
+</ul>   
+<ul>   
+<li>e</li>   
+<li>f</li>   
+<li>g</li>   
+<li>h</li>   
+</ul>   
+<ul>   
+<li>i</li>   
+<li>j</li>   
+</ul>  
+<tr>   
+<td>a</td>   
+<td>b</td>   
+<td>c</td>   
+<td>d</td>   
+</tr>   
+<tr>   
+<td>e</td>   
+<td>f</td>   
+<td>g</td>   
+<td>h</td>   
+</tr>   
+<tr>   
+<td>i</td>   
+<td>j</td>   
+<td>-</td>   
+<td>-</td>   
+</tr>  
+==========.设置缺省格式指令setting ============  
+<#setting number_format = "#"/>   
+${1.234}   
+输出1   
+<#setting number_format="0.##">   
+${1.234}   
+输出   
+1.23  
+==========包含文件指令 include ============  
+<#include "header.htm"/>  
+==========导入macros指令 import =======  
+<#import "../macros/pagination.ftl" as pagination>  
+==========freemarker的list============  
+  
+Scalar String:${scalarString}   
+Scalar Number:${scalarNumber}   
+Object is:${scalarObject}  
+List使用样例-List元素为Scalar对象:  
+<#list scalarList as value0>   
+Scalar List值：${value0}   
+</#list>  
+List使用样例-List元素为User对象:  
+<#list userList as listUser>   
+List对象User Id值：${listUser.userId}   
+</#list>  
+Map使用样例-Map Values元素为Scalar :  
+<#list scalarMap?keys as mykey>   
+Scalar Map key is :${mykey}   
+Scalar Map value is:${scalarMap[mykey]}   
+</#list>  
+Map使用样例-Map Values元素为User对象:  
+<#list userMap?keys as key1>   
+<#assign mapUser="${userMap[key1]}" >   
+User Object is :${mapUser}   
+<#--   
+以下方法有问题   
+User is :${mapUser.userId} <br>   
+-->   
+</#list>  
+=======FreeMarker中list排序=======   
+升序：   
+<#list list?sort_by("time") as v>   
+</#list>   
+降序：   
+<#list list?sort_by("time") as v>   
+</#list>  
+  
+========freemarker在模板中定义变量=======  
+在模板中定义的变量有三种类型：   
+plain变量：可以在模板的任何地方访问，包括include指令插入的模板，使用assign指令创建和替换   
+<#include "/WEB-INF/index/top.html">  
+  
+=======freemarker.properties配置=========   
+（1）解决输出中文乱码问题：   
+default_encoding=UTF-8   
+locale=zh_CN   
+number_format=#  
+（2）提高freemarker的性能   
+template_update_delay=60000  
+（3）freemarker的标签种类：   
+${..}   
+# 代表是FTL tags   
+<#if ...></#if>   
+<#list totalList as elementObject>...</#list>   
+@ ,代表用户自定义的标签   
+<#-- --> 注释标签，注意不是<!-- -->  
+==============将图片整除换行====== <#if (u_index+1)%4=0>当图片超过五个就换行=======   
+<table width="100%">   
+<tr>   
+<td><table width="100%">   
+<tr>   
+<#if map["最新-图片"]?exists>   
+<#list map["最新-图片"] as u>   
+<#if (u_index+1)%4=0>   
+<td><table width="70" height="65" border="0" cellpadding="0" cellspacing="0">   
+<tr>  
+<td align="center" valign="middle" bgcolor="#6F7074">   
+<a target="_blank" href="shownews.page?id=${u.id?default("")}&mole=2 "><img src="${u.chartpath?default('')}" width="67" height="41" border="0" /></a></td>   
+</tr>   
+<tr>   
+<td align="center" bgcolor="#6F7074">   
+<a target="_blank" href="shownews.page?id=${u.id?default("")}&mole=2 " class="tableff">   
+<@jf.greet title=u.title len=4 /></a>   
+</td>   
+</tr>  
+</table></td></tr><tr >   
+<#else>   
+<td><table width="70" height="65" border="0" cellpadding="0" cellspacing="0">   
+<tr>  
+<td align="center" valign="middle" bgcolor="#6F7074">   
+<a target="_blank" href="shownews.page?id=${u.id?default("")}&mole=2 "><img src="${u.chartpath?default('')}" width="67" height="41" border="0" /></a></td>   
+</tr>   
+<tr>   
+<td align="center" bgcolor="#6F7074">   
+<a target="_blank" href="shownews.page?id=${u.id?default("")}&mole=2 " class="tableff">   
+<@jf.greet title=u.title len=4 /></a>   
+</td>   
+</tr>  
+</table></td>   
+</#if>   
+</#list>   
+</#if>   
+</tr>   
+</table>   
+</td>   
+</tr>   
+</table>   
+</tr>   
+</table></td>   
+</#if>   
+</#list>   
+</#if>   
+</tr>   
+</table>   
+</td>   
+</tr>   
+</table>  
+=================freemarker中在application   
+${Application.web_title}  
+在类里：   
+list=dser.indexvideo(cvo);   
+if(list.size()!=0){   
+map.put("最新",list);}  
+在html静态页里：   
+<#import "/WEB-INF/ftl/index.ftl" as jf>   
+（index.ftl   
+<#macro greet title len>   
+<#if title?length != 0>   
+<#if (title?length>len)>   
+${title[0..len-1]} <#else>   
+${title?trim}   
+</#if>   
+<#else>   
+${title?default("")}   
+</#if>   
+</#macro>   
+<#--时间比较-->   
+<#macro vstime start end>   
+<#if start?default("")==""||end?default("")=="">   
+--   
+<#else>   
+<#assign starts=start?replace("-","") >   
+<#assign ends=end?replace("-","") >   
+<#if (starts?number>ends?number)>   
+<font color="red">以过期</font>   
+<#else>   
+未过期   
+</#if>   
+</#if>   
+</#macro>   
+）  
+<#if map["最新"]?exists>   
+<#list map["最新"] as u>   
+${u.filepath?default('')}   
+<@jf.greet title=u.title len=6 />   
+</#list></#if>
