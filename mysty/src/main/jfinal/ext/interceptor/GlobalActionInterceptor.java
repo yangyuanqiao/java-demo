@@ -12,7 +12,7 @@ import com.jfinal.core.JFinal;
 import main.jfinal.utils.StringUtils;
 
 /**
- * 异常处理日志 全局拦截器 Created by rener on 2015/12/7.
+ * 异常处理日志 全局拦截器 
  */
 public class GlobalActionInterceptor implements Interceptor {
 
